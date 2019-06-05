@@ -6,6 +6,12 @@
           <img src="../assets/icons/section-title/map.svg">
         </template>
 
+        <template v-if="isUserOutOfQuota" slot="warning">
+          <SectionTitleWarning>
+            <div v-html="$t('MapsPage.header.warning', { path: accountUpdateURL })"></div>
+          </SectionTitleWarning>
+        </template>
+
         <template slot="dropdownButton">
           <MapBulkActions
             :selectedMaps="selectedMaps"
@@ -92,6 +98,7 @@ import MapCard from 'new-dashboard/components/MapCard/MapCard.vue';
 import CondensedMapHeader from 'new-dashboard/components/MapCard/CondensedMapHeader.vue';
 import MapCardFake from 'new-dashboard/components/MapCard/fakes/MapCardFake';
 import SectionTitle from 'new-dashboard/components/SectionTitle';
+import SectionTitleWarning from 'new-dashboard/components/SectionTitleWarning';
 import SettingsDropdown from 'new-dashboard/components/Settings/Settings';
 import { shiftClick } from 'new-dashboard/utils/shift-click.service.js';
 
@@ -129,6 +136,7 @@ export default {
     CondensedMapHeader,
     MapCardFake,
     SectionTitle,
+    SectionTitleWarning,
     InitialState
   },
   data () {
@@ -156,7 +164,8 @@ export default {
       linkMapsTotal: state => state.user.link_privacy_map_count,
       passwordMapsTotal: state => state.user.password_privacy_map_count,
       publicMapsTotal: state => state.user.public_privacy_map_count,
-      isFirstTimeViewingDashboard: state => state.config.isFirstTimeViewingDashboard
+      isFirstTimeViewingDashboard: state => state.config.isFirstTimeViewingDashboard,
+      accountUpdateURL: state => state.config.account_update_url
     }),
     pageTitle () {
       return this.selectedMaps.length

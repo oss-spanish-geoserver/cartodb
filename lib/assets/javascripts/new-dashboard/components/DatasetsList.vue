@@ -6,6 +6,12 @@
           <img src="../assets/icons/section-title/data.svg" width="18" height="20" />
         </template>
 
+        <template v-if="isUserOutOfQuota" slot="warning">
+          <SectionTitleWarning>
+            <div v-html="$t('DataPage.header.warning', { path: accountUpdateURL })"></div>
+          </SectionTitleWarning>
+        </template>
+
         <template slot="dropdownButton">
           <DatasetBulkActions
             :selectedDatasets="selectedDatasets"
@@ -93,6 +99,7 @@ import DatasetListHeader from '../components/Dataset/DatasetListHeader';
 import DatasetCardFake from '../components/Dataset/DatasetCardFake';
 import SettingsDropdown from '../components/Settings/Settings';
 import SectionTitle from 'new-dashboard/components/SectionTitle';
+import SectionTitleWarning from 'new-dashboard/components/SectionTitleWarning';
 import InitialState from 'new-dashboard/components/States/InitialState';
 import EmptyState from 'new-dashboard/components/States/EmptyState';
 import CreateButton from 'new-dashboard/components/CreateButton';
@@ -119,6 +126,7 @@ export default {
     CreateButton,
     SettingsDropdown,
     SectionTitle,
+    SectionTitleWarning,
     DatasetCard,
     DatasetCardFake,
     InitialState,
@@ -147,7 +155,8 @@ export default {
       totalShared: state => state.datasets.metadata.total_shared,
       datasetQuota: state => state.user.table_quota,
       datasetCount: state => state.user.table_count,
-      isFirstTimeViewingDashboard: state => state.config.isFirstTimeViewingDashboard
+      isFirstTimeViewingDashboard: state => state.config.isFirstTimeViewingDashboard,
+      accountUpdateURL: state => state.config.account_update_url
     }),
     canCreateDatasets () {
       return this.$store.getters['user/canCreateDatasets'];

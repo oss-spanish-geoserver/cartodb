@@ -6,6 +6,8 @@
         {{title}}
       </h2>
 
+      <slot name="warning"></slot>
+
       <ul class="head-sectionActions">
         <li class="head-sectionActionsItem head-sectionDropdownContainer">
           <slot name="dropdownButton"></slot>
