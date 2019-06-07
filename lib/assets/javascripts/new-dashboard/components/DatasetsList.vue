@@ -6,7 +6,7 @@
           <img src="../assets/icons/section-title/data.svg" width="18" height="20" />
         </template>
 
-        <template v-if="isUserOutOfQuota" slot="warning">
+        <template v-if="isUserOutOfQuota && !selectedDatasets.length" slot="warning">
           <SectionTitleWarning>
             <div v-html="$t('DataPage.header.warning', { path: `//${ accountUpdateURL }` })"></div>
           </SectionTitleWarning>

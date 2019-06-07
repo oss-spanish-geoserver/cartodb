@@ -6,7 +6,7 @@
           <img src="../assets/icons/section-title/map.svg">
         </template>
 
-        <template v-if="isUserOutOfQuota" slot="warning">
+        <template v-if="isUserOutOfQuota && !selectedMaps.length" slot="warning">
           <SectionTitleWarning>
             <div v-html="$t('MapsPage.header.warning', { path: `//${ accountUpdateURL }` })"></div>
           </SectionTitleWarning>
