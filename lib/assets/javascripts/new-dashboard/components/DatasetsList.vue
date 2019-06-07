@@ -6,7 +6,7 @@
           <img src="../assets/icons/section-title/data.svg" width="18" height="20" />
         </template>
 
-        <template v-if="isUserOutOfQuota && !selectedDatasets.length" slot="warning">
+        <template v-if="shouldShowLimitsWarning" slot="warning">
           <SectionTitleWarning>
             <div v-html="$t('DataPage.header.warning', { path: `//${ accountUpdateURL }` })"></div>
           </SectionTitleWarning>
@@ -203,6 +203,9 @@ export default {
     },
     isUserOutOfQuota () {
       return this.datasetCount >= this.datasetQuota;
+    },
+    shouldShowLimitsWarning () {
+      return this.datasetQuota && this.isUserOutOfQuota && !this.selectedDatasets.length;
     },
     isNotificationVisible () {
       return this.$store.getters['user/isNotificationVisible'];

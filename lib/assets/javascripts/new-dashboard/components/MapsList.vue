@@ -6,7 +6,7 @@
           <img src="../assets/icons/section-title/map.svg">
         </template>
 
-        <template v-if="isUserOutOfQuota && !selectedMaps.length" slot="warning">
+        <template v-if="shouldShowLimitsWarning" slot="warning">
           <SectionTitleWarning>
             <div v-html="$t('MapsPage.header.warning', { path: `//${ accountUpdateURL }` })"></div>
           </SectionTitleWarning>
@@ -212,6 +212,9 @@ export default {
     },
     isUserOutOfQuota () {
       return this.publicMapsCount >= this.publicMapQuota;
+    },
+    shouldShowLimitsWarning () {
+      return this.publicMapQuota && this.isUserOutOfQuota && !this.selectedMaps.length;
     },
     shouldShowViewSwitcher () {
       return this.canChangeViewMode && !this.initialState && !this.emptyState && !this.selectedMaps.length;
