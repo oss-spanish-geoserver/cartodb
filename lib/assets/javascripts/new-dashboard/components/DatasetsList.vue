@@ -159,7 +159,7 @@ export default {
       accountUpdateURL: state => state.config.account_update_url
     }),
     canCreateDatasets () {
-      return this.$store.getters['user/canCreateDatasets'];
+      return this.$store.getters['user/canCreateDatasets'] && !this.isUserOutOfQuota;
     },
     pageTitle () {
       return this.selectedDatasets.length
